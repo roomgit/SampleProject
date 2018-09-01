@@ -1,9 +1,9 @@
-from tkinter import Tk, ttk, PhotoImage
+#from tkinter import Tk, ttk, PhotoImage
+import tkinter as t
+root = t.Tk()
 
-root = Tk()
+img = t.PhotoImage(file='nanohana.gif')
 
-img = PhotoImage(file='nanohana.gif')
-
-label = ttk.Label(root, image=img)
+label = t.Label(root, image=img)
 label.grid()
 root.mainloop()
