@@ -1,12 +1,24 @@
 #1
 #from tkinter import Tk, ttk, PhotoImage
 import tkinter as tk
-root = tk.Tk()
+#root = tk.Tk()
 
-img = tk.PhotoImage(file='nanohana.gif')
-img2 = tk.PhotoImage(file='happy.gif')
-label = tk.Label(root, image=img)
-label2 = tk.Label(root, image=img2)
-label.grid()
-label2.grid()
-root.mainloop()
+class Frame(tk.Frame):
+    def __init__(self, master=None):
+        tk.Frame.__init__(self, master)
+        self.img = tk.PhotoImage(file='nanohana.gif')
+        label = tk.Label(self, image=self.img)
+        label.pack()
+        self.img2 = tk.PhotoImage(file='happy.gif')
+        label = tk.Label(self, image=self.img2)
+        label.pack()
+
+
+
+if __name__ == "__main__":
+    #root.mainloop()
+    f = Frame()
+    f.pack()
+    f.mainloop()
+
+
