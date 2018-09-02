@@ -1,16 +1,19 @@
-
 # 0 - 9 までのボタン, 演算子を配置する　(gridを使用）
 # ボタンが押されたら、押された番号をprint
 
 import tkinter as tk
 
+#customFont = ('Calibri', 12)
+
 class window(tk.Frame):
     def __init__(self, master=None):
         tk.Frame.__init__(self, master)
 
-        buttons =[]
-        for i in range(0,10):
-            button = tk.Button(self, text=str(i), font=('Helvetica', '16'), command=lambda num=i: get_variables(num))
+
+
+        buttons = []
+        for i in range(0, 10):
+            button = tk.Button(self, text=str(i), font=('Calibri', 16), command=lambda num=i: get_variables(num))
             buttons.append(button)
 
         buttons[1].grid(row=2, column=0)
@@ -27,17 +30,25 @@ class window(tk.Frame):
         plus = tk.Button(self, text="+", command=lambda: get_operation("+"))
         minus = tk.Button(self, text="-", command=lambda: get_operation("-"))
         multiply = tk.Button(self, text="*", command=lambda: get_operation("*"))
-        devide = tk.Button(self, text="/", command=lambda: get_operation("/"))
+        divide = tk.Button(self, text="/", command=lambda: get_operation("/"))
 
-        plus.grid(row=6,column=0)
-        minus.grid(row=6,column=1)
-        multiply.grid(row=6,column=2)
-        devide.grid(row=6,column=3)
+        plus.grid(row=6, column=0)
+        minus.grid(row=6, column=1)
+        multiply.grid(row=6, column=2)
+        divide.grid(row=6, column=3)
+
+        self.entry = tk.StringVar()
+        self.box = tk.Entry(self, width=7, textvariable=self.entry)
+        self.box.grid(row=7, column=0)
+
 def get_variables(num):
-        print(num)
+    print(num)
+
+
 
 def get_operation(operator):
-        print(operator)
+    print(operator)
+
 
 if __name__ == "__main__":
     f = window()
