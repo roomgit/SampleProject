@@ -1,23 +1,23 @@
-# switchface.py
-from tkinter import Button, Frame
-from PIL.Image import open
-from PIL.ImageTk import PhotoImage
+# popq2.py
+import tkinter as tk
+#from PIL.Image import open
+#from PIL.ImageTk import PhotoImage
 
-class switchface(Frame):
-    def __init__(self, master = None):
-        Frame.__init__(self, master)
+class switchface(tk.Frame):
+    def __init__(self, master=None):
+        tk.Frame.__init__(self, master)
         self.pack()
         # The pic currently displayed.
         self.current = 0
         # Open the images.
-        self.i0 = open("happy.gif")
-        self.i1 = open("nanohana.gif")
+        #self.i0 = open("happy.gif")
+        #self.i1 = open("nanohana.gif")
         # Make them tkinter-compatible.
-        self.p0 = PhotoImage(self.i0)
-        self.p1 = PhotoImage(self.i1)
+        self.p0 = tk.PhotoImage(file='happy.gif')
+        self.p1 = tk.PhotoImage(file='nanohana.gif')
 
         # Create button, add image.
-        self.b = Button(master, image=self.p0, command=self.switch)
+        self.b = tk.Button(master, image=self.p0, command=self.switch)
         self.b.pack()
         # Keep a reference.
         self.b.image = self.p0
