@@ -1,5 +1,5 @@
 
-# 0 - 9 までのボタンを配置する　(gridを使用）
+# 0 - 9 までのボタン, 演算子を配置する　(gridを使用）
 # ボタンが押されたら、押された番号をprint
 
 import tkinter as tk
@@ -24,8 +24,20 @@ class window(tk.Frame):
         buttons[9].grid(row=4, column=2)
         buttons[0].grid(row=5, column=0)
 
+        plus = tk.Button(self, text="+", command=lambda: get_operation("+"))
+        minus = tk.Button(self, text="-", command=lambda: get_operation("-"))
+        multiply = tk.Button(self, text="*", command=lambda: get_operation("*"))
+        devide = tk.Button(self, text="/", command=lambda: get_operation("/"))
+
+        plus.grid(row=6,column=0)
+        minus.grid(row=6,column=1)
+        multiply.grid(row=6,column=2)
+        devide.grid(row=6,column=3)
 def get_variables(num):
         print(num)
+
+def get_operation(operator):
+        print(operator)
 
 if __name__ == "__main__":
     f = window()
