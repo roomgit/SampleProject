@@ -1,17 +1,17 @@
 import tkinter as tk
 
-class MyApp:
-    def __init__(self, master):
-        self.l = tk.Label(master,text="My Button")
-        self.l.pack()
 
-        self.b = tk.Button(master, text= "Hello", command = self.hello)
-        #self.img = tk.PhotoImage(file='nanohana.gif')
-        #self.l.configure(img=self.img)
-        self.b.pack()
+class MyApp(tk.Frame):
+    def __init__(self, master=None):
+        tk.Frame.__init__(self, master)
+        self.pack()
+        self.lbl = tk.Label(self, text="My Button")
+        self.lbl.pack()
 
+        self.btn = tk.Button(self, text="Hello", command=self.hello)
+        self.btn.pack()
 
     def hello(self):
-        print ("Hello")
+        print("Hello")
 
-    #def loadimage(self):
+
