@@ -6,7 +6,12 @@ class MyApp:
         self.l.pack()
 
         self.b = tk.Button(master, text= "Hello", command = self.hello)
+        #self.img = tk.PhotoImage(file='nanohana.gif')
+        #self.l.configure(img=self.img)
         self.b.pack()
+
 
     def hello(self):
         print ("Hello")
+
+    #def loadimage(self):

@@ -1,4 +1,4 @@
-#1
+
 #from tkinter import Tk, ttk, PhotoImage
 import tkinter as tk
 #root = tk.Tk()
