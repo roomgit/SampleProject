@@ -10,7 +10,12 @@ root.title('Calculator')
 contentVar = tkinter.StringVar(root, '')
 contentEntry = tkinter.Entry(root,textvariable = contentVar)
 contentEntry['state'] = 'readonly'
-contentEntry.place(x=10, y=10, width=280, height=20)
+contentEntry.place(x=100, y=10, width=140, height=20)
+
+contentVar2 = tkinter.StringVar(root, '')
+contentEntry2 = tkinter.Entry(root,textvariable = contentVar2)
+contentEntry2['state'] = 'readonly'
+contentEntry2.place(x=30, y=10, width=140, height=20)
 
 
 def buttonClick(btn):
@@ -30,7 +35,7 @@ def buttonClick(btn):
         content = ''
     elif btn == '=':
         try:
-            content = str(eval(content))
+            content = str(eval(content))   #　Execute Calculation
         except:
             tkinter.messagebox.showerror('Error','Expression error')
             return
@@ -39,6 +44,7 @@ def buttonClick(btn):
             tkinter.messagebox.showerror('Error', 'Multiple Operators' )
             return
         content += btn
+    '''
     elif btn == 'Sqrt':
         n = content.split('.')
         if all(map(lambda x: x.isdigit(), n)):
@@ -46,6 +52,7 @@ def buttonClick(btn):
         else:
             tkinter.messagebox.showerror('Error', 'Expression Error')
             return
+    '''
 
     contentVar.set(content)
 #---------------
