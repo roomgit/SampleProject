@@ -10,9 +10,9 @@ app = QApplication(sys.argv)
 
 # Create a button
 
-button = QLCDNumber()
+button = QPushButton()
 
-button.display(123)
+#button.display(123)
 
 # Show the button
 
