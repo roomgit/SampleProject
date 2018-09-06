@@ -10,12 +10,12 @@ root.title('Calculator')
 contentVar = tkinter.StringVar(root, '')
 contentEntry = tkinter.Entry(root,textvariable = contentVar)
 contentEntry['state'] = 'readonly'
-contentEntry.place(x=100, y=10, width=140, height=20)
+contentEntry.place(x=10, y=10, width=140, height=20)
 
 contentVar2 = tkinter.StringVar(root, '')
 contentEntry2 = tkinter.Entry(root,textvariable = contentVar2)
 contentEntry2['state'] = 'readonly'
-contentEntry2.place(x=30, y=10, width=140, height=20)
+contentEntry2.place(x=150, y=10, width=140, height=20)
 
 
 def buttonClick(btn):
