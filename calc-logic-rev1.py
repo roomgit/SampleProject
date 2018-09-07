@@ -10,13 +10,17 @@ root.title('Calculator')
 contentVar = tkinter.StringVar(root, '')
 contentEntry = tkinter.Entry(root,textvariable = contentVar)
 contentEntry['state'] = 'readonly'
-contentEntry.place(x=10, y=10, width=140, height=20)
+contentEntry.place(x=10, y=10, width=100, height=20)
 
 contentVar2 = tkinter.StringVar(root, '')
 contentEntry2 = tkinter.Entry(root,textvariable = contentVar2)
 contentEntry2['state'] = 'readonly'
-contentEntry2.place(x=150, y=10, width=140, height=20)
+contentEntry2.place(x=100, y=10, width=90, height=20)
 
+contentVar3 = tkinter.StringVar(root, '')
+contentEntry3 = tkinter.Entry(root,textvariable = contentVar3)
+contentEntry3['state'] = 'readonly'
+contentEntry3.place(x=190, y=10, width=90, height=20)
 
 def buttonClick(btn):
     content = contentVar.get()
