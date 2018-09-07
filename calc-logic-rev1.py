@@ -24,9 +24,21 @@ contentEntry3.place(x=190, y=10, width=90, height=20)
 
 def buttonClick(btn):
     content = contentVar.get()
+    content2 =contentVar2.get()
+    content3 =contentVar3.get()
+
     if content.startswith('.'):
         content = '0' + content
+    if content2.startswith('.'):
+        content2 = '0' + content2
+
     if btn in '0123456789':
+        if content.endswith('+'):
+            content2 = btn
+        elif content2 == '0':
+            content2 = btn
+        else:
+            content2 += btn                                                     # Content2
         content += btn
     elif btn == '.':
         lastPart = re.split(r'\+|-|\*|/]', content)[-1]
@@ -35,8 +47,17 @@ def buttonClick(btn):
             return
         else:
             content += btn
+
+        lastPart2 = re.split(r'\+|-|\*|/]', content2)[-1]
+        if '.' in lastPart2:
+            tkinter.messagebox.showerror('Error','Too many periods in content 2')
+            return
+        else:
+            content2 += btn
     elif btn == 'C':
         content = ''
+        content2 = ''
+        content3 = ''
     elif btn == '=':
         try:
             content = str(eval(content))   #　Execute Calculation
@@ -48,6 +69,14 @@ def buttonClick(btn):
             tkinter.messagebox.showerror('Error', 'Multiple Operators' )
             return
         content += btn
+
+        if content2.endswith(operators):
+            tkinter.messagebox.showerror('Error', 'Multiple Operators in 2' )
+            return
+
+        content3 = content2
+
+
     '''
     elif btn == 'Sqrt':
         n = content.split('.')
@@ -59,6 +88,8 @@ def buttonClick(btn):
     '''
 
     contentVar.set(content)
+    contentVar2.set(content2)
+    contentVar3.set(content3)
 #---------------
 
 btnClear = tkinter.Button(root, text="Clear", command=lambda:buttonClick('C'))
