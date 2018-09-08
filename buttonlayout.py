@@ -45,7 +45,6 @@ def get_variables(num):
     print(num)
 
 
-
 def get_operation(operator):
     print(operator)
 

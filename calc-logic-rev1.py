@@ -35,7 +35,7 @@ def buttonClick(btn):
     if btn in '0123456789':
         if content.endswith('+'):
             content2 = btn
-        elif content2 == '0':
+        elif content2 == 0:
             content2 = btn
         else:
             content2 += btn                                                     # Content2
