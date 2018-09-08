@@ -19,7 +19,7 @@ class switchface(tk.Frame):
         # Create button, add image.
 #        self.b = tk.Button(master, image=self.p0, command=self.switch)
         self.b = tk.Button(master, text="ボタン", image=self.p0)
-        self.b.bind("<Button-1>", self.callback)
+        self.b.bind("<Button-1>", self.callback)   # Button-1 : マウス左ボタン(押され）
         self.b.bind("<ButtonRelease-1>", self.callback2)
         self.b.pack()
         # Keep a reference.
@@ -32,6 +32,8 @@ class switchface(tk.Frame):
     def callback2(self, event):  # この（"self" と"イベント"の２個が重要）
         print(event.widget["text"], "released")
         self.b.configure(image=self.p0)
+
+'''
     def switch(self):
         if (self.current == 0):
             self.b.configure(image=self.p1)
@@ -39,7 +41,7 @@ class switchface(tk.Frame):
         else:
             self.b.configure(image=self.p0)
             self.current = 0
-
+'''
 
 
 if __name__== "__main__":
