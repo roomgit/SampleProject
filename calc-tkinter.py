@@ -22,28 +22,13 @@ class window(tk.Frame):
         self.contentVar.set(content)
 
         # Image file reading
-        self.pimg=[]
-        self.rimg=[]
-        for n in range (0,10):
+        self.press_img=[]
+        self.release_img=[]
+        for n in range (0,17):
             filename='./resource/Press_%d.png' % (n)
-            self.pimg.append(tk.PhotoImage(file=filename))
+            self.press_img.append(tk.PhotoImage(file=filename))
             filename = './resource/Release_%d.png' % (n)
-            self.rimg.append(tk.PhotoImage(file=filename))
-
-        self.pperiod = tk.PhotoImage(file='./resource/Press_period.png')
-        self.pequal = tk.PhotoImage(file='./resource/Press_equal.png')
-        self.pplus = tk.PhotoImage(file='./resource/Press_plus.png')
-        self.pminus = tk.PhotoImage(file='./resource/Press_minus.png')
-        self.pmultiply = tk.PhotoImage(file='./resource/Press_multiply.png')
-        self.pdivide = tk.PhotoImage(file='./resource/Press_divide.png')
-        self.pall_clear = tk.PhotoImage(file='./resource/Press_AC.png')
-        self.rperiod = tk.PhotoImage(file='./resource/Release_period.png')
-        self.requal = tk.PhotoImage(file='./resource/Release_equal.png')
-        self.rplus = tk.PhotoImage(file='./resource/Release_plus.png')
-        self.rminus = tk.PhotoImage(file='./resource/Release_minus.png')
-        self.rmultiply = tk.PhotoImage(file='./resource/Release_multiply.png')
-        self.rdivide = tk.PhotoImage(file='./resource/Release_divide.png')
-        self.rall_clear = tk.PhotoImage(file='./resource/Release_AC.png')
+            self.release_img.append(tk.PhotoImage(file=filename))
 
         numberbuttons = []
         for i in range(0,10):
@@ -51,34 +36,33 @@ class window(tk.Frame):
             numberbuttons.append(button)
 
         for n in range(0,10):
-            numberbuttons[n].configure(image=self.rimg[n])
-
-        period = tk.Button(self, text='.', bd=0, image=self.rperiod)
-        equal = tk.Button(self, text='=', bd=0,image=self.requal)
-        plus = tk.Button(self, text='+', bd=0, image=self.rplus)
-        minus = tk.Button(self, text='-', bd=0, image=self.rminus)
-        multiply = tk.Button(self, text='*', bd=0, image=self.rmultiply)
-        divide = tk.Button(self, text='/', bd=0,image=self.rdivide)
-        all_clear = tk.Button(self, text='C', bd=0, image=self.rall_clear)
+            numberbuttons[n].configure(image=self.release_img[n])
+        period = tk.Button(self, text='.', bd=0, image=self.release_img[10])
+        equal = tk.Button(self, text='=', bd=0,image=self.release_img[11])
+        plus = tk.Button(self, text='+', bd=0, image=self.release_img[12])
+        minus = tk.Button(self, text='-', bd=0, image=self.release_img[13])
+        multiply = tk.Button(self, text='*', bd=0, image=self.release_img[14])
+        divide = tk.Button(self, text='/', bd=0,image=self.release_img[15])
+        all_clear = tk.Button(self, text='C', bd=0, image=self.release_img[16])
 
         # Binding
         for i in range(10):
             numberbuttons[i].bind("<Button-1>", self.btn_press)
             numberbuttons[i].bind("<ButtonRelease-1>", self.btn_release)
         period.bind("<Button-1>", self.period_press)
-        period.bind("<ButtonRelease-1>", lambda event: event.widget.configure(image=self.rperiod))
+        period.bind("<ButtonRelease-1>", lambda event: event.widget.configure(image=self.release_img[10]))
         equal.bind("<Button-1>", self.operator_press)
-        equal.bind("<ButtonRelease-1>", lambda event: event.widget.configure(image=self.requal))
+        equal.bind("<ButtonRelease-1>", lambda event: event.widget.configure(image=self.release_img[11]))
         plus.bind("<Button-1>", self.operator_press)
-        plus.bind("<ButtonRelease-1>", lambda event: event.widget.configure(image=self.rplus))
+        plus.bind("<ButtonRelease-1>", lambda event: event.widget.configure(image=self.release_img[12]))
         minus.bind("<Button-1>", self.operator_press)
-        minus.bind("<ButtonRelease-1>", lambda event: event.widget.configure(image=self.rminus))
+        minus.bind("<ButtonRelease-1>", lambda event: event.widget.configure(image=self.release_img[13]))
         multiply.bind("<Button-1>", self.operator_press)
-        multiply.bind("<ButtonRelease-1>", lambda event: event.widget.configure(image=self.rmultiply))
+        multiply.bind("<ButtonRelease-1>", lambda event: event.widget.configure(image=self.release_img[14]))
         divide.bind("<Button-1>", self.operator_press)
-        divide.bind("<ButtonRelease-1>", lambda event: event.widget.configure(image=self.rdivide))
+        divide.bind("<ButtonRelease-1>", lambda event: event.widget.configure(image=self.release_img[15]))
         all_clear.bind("<Button-1>", self.all_clear_press)
-        all_clear.bind("<ButtonRelease-1>", lambda event: event.widget.configure(image=self.rall_clear))
+        all_clear.bind("<ButtonRelease-1>", lambda event: event.widget.configure(image=self.release_img[16]))
 
         # Layout
         numberbuttons[0].place(x=10, y=100, width=30, height=20)
@@ -105,64 +89,67 @@ class window(tk.Frame):
 
     def btn_press(self, event):
         btn = event.widget["text"]
-        event.widget.configure(image=self.pimg[int(btn)])
+        event.widget.configure(image=self.press_img[int(btn)])
         if self.wait_initial_input == True:
             self.work = float(self.contentVar.get())
             print("inital")
             print(self.work)
             contents = btn
             self.contentVar.set(contents)
-            self.wait_initial_input == False
+            self.wait_initial_input = False
+        else:
+            self.work = float(self.contentVar.get())
+            contents= self.contentVar.get() + btn
 
-        self.contentVar.set(btn)
+        self.contentVar.set(contents)
 
     def period_press(self,event):
         btn = event.widget['text']
         print(btn)
-        event.widget.configure(image=self.pperiod)
+        event.widget.configure(image=self.press_img[10])
 
     def operator_press(self,event):
         btn = event.widget['text']
         print(btn)
         if btn == '+':
-            event.widget.configure(image=self.pplus)
+            event.widget.configure(image=self.press_img[12])
             self.wait_initial_input = True
             self.operation = '+'
         elif btn == '-':
-            event.widget.configure(image=self.pminus)
+            event.widget.configure(image=self.press_img[13])
             self.wait_initial_input = True
             self.operation = '-'
         elif btn == '*':
-            event.widget.configure(image=self.pmultiply)
+            event.widget.configure(image=self.press_img[14])
             self.wait_initial_input = True
             self.operation = '*'
         elif btn == '/':
-            event.widget.configure(image=self.pdivide)
+            event.widget.configure(image=self.press_img[15])
             self.wait_initial_input = True
             self.operation = '/'
         elif btn == '=':
-            event.widget.configure(image=self.pequal)
+            event.widget.configure(image=self.press_img[10])
             if self.operation == '+':
-                contents = + self.work + int(self.contentVar.get())
+                contents = self.work + float(self.contentVar.get())
             elif self.operation == '-':
-                contents = self.work - int(self.contentVar.get())
+                contents = self.work - float(self.contentVar.get())
             elif self.operation == '*':
-                contents = self.work * int(self.contentVar.get())
+                contents = self.work * float(self.contentVar.get())
             elif self.operation == '/':
-                contents = self.work / int(self.contentVar.get())
+                contents = self.work / float(self.contentVar.get())
             else:
-                pass
-            self.contentVar.set(contents)
+                contents = float(self.contentVar.get())
 
+            self.contentVar.set(contents)
             self.wait_initial_input = True
             self.operation = ''
-            work = 0
+            self.work = 0
 
     def btn_release(self, event):
-        event.widget.configure(image=self.rimg[int(event.widget["text"])])
+        event.widget.configure(image=self.release_img[int(event.widget["text"])])
 
     def all_clear_press(self, event):
-        event.widget.configure(image=self.pall_clear)
+        event.widget.configure(image=self.press_img[16])
         self.saved_operator='None'
         self.work=0
         self.contentVar.set('0')
