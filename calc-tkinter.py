@@ -13,13 +13,18 @@ class window(tk.Frame):
         self.master.title('Calc')
         self.master.resizable(False, False)
 
-        # Display contents
-        contentVar = tk.StringVar(self,'')
-        contentEntry = tk.Entry(self, textvariable=contentVar)
-        #contentEntry['state'] = 'readonly'
+        # Display Contents
+        self.contentVar = tk.StringVar(self,'')
+        contentEntry = tk.Entry(self, textvariable=self.contentVar)
+        contentEntry['state'] = 'readonly'
         contentEntry.place(x=250, y=30, width=300, height=60)
+        self.contentVar.set("hello")
+        content = self.contentVar.get()
+        content = content + "again"
+        self.contentVar.set(content)
 
-        # Buttons
+        # Image files
+        # Pressed Images
         self.p0 = tk.PhotoImage(file='./resource/Press_0.png')
         self.p1 = tk.PhotoImage(file='./resource/Press_1.png')
         self.p2 = tk.PhotoImage(file='./resource/Press_2.png')
@@ -37,6 +42,7 @@ class window(tk.Frame):
         self.pmultiply = tk.PhotoImage(file='./resource/Press_multiply.png')
         self.pdivide = tk.PhotoImage(file='./resource/Press_divide.png')
         self.pall_clear = tk.PhotoImage(file='./resource/Press_AC.png')
+        # Released Images
         self.r0 = tk.PhotoImage(file='./resource/Release_0.png')
         self.r1 = tk.PhotoImage(file='./resource/Release_1.png')
         self.r2 = tk.PhotoImage(file='./resource/Release_2.png')
@@ -58,9 +64,9 @@ class window(tk.Frame):
         numberbuttons = []
         for i in range(10):
             button = tk.Button(self, text=str(i), font=('Calibri', 16),bd=0)
-            button
             numberbuttons.append(button)
 
+        # Image Mapping
         numberbuttons[0].configure(image=self.r0)
         numberbuttons[1].configure(image=self.r1)
         numberbuttons[2].configure(image=self.r2)
@@ -71,8 +77,7 @@ class window(tk.Frame):
         numberbuttons[7].configure(image=self.r7)
         numberbuttons[8].configure(image=self.r8)
         numberbuttons[9].configure(image=self.r9)
-
-
+        # Layout
         numberbuttons[0].place(x=10, y=100, width=30, height=20)
         numberbuttons[1].place(x=10, y=80, width=30, height=20)
         numberbuttons[2].place(x=40, y=80, width=30, height=20)
@@ -83,7 +88,10 @@ class window(tk.Frame):
         numberbuttons[7].place(x=10, y=40, width=30, height=20)
         numberbuttons[8].place(x=40, y=40, width=30, height=20)
         numberbuttons[9].place(x=70, y=40, width=30, height=20)
-
+        # binding
+        for i in range(10):
+            numberbuttons[i].bind("<Button-1>", self.btn_press)
+            numberbuttons[i].bind("<ButtonRelease-1>", self.btn_release)
 
         period = tk.Button(self, text='.', font=('Calibri', 16),bd=0)
         period.configure(image=self.rperiod)
@@ -115,10 +123,17 @@ class window(tk.Frame):
         all_clear.bind("<Button-1>", self.all_clear_press)
         all_clear.bind("<ButtonRelease-1>", self.all_clear_release)
 
+    def btn_press(self, event):
+        event.widget.configure(image=self.p1)
+        c = event.widget["text"]
+        self.contentVar.set(c)
+
+    def btn_release(self, event):
+        event.widget.configure(image=self.r1)
 
     def all_clear_press(self, event):
         event.widget.configure(image=self.pall_clear)
-
+        self.contentVar.set("1")
 
     def all_clear_release(self, event):
         event.widget.configure(image=self.rall_clear)
