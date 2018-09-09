@@ -18,23 +18,18 @@ class window(tk.Frame):
         contentEntry = tk.Entry(self, textvariable=self.contentVar)
         contentEntry['state'] = 'readonly'
         contentEntry.place(x=250, y=30, width=300, height=60)
-        self.contentVar.set("hello")
-        content = self.contentVar.get()
-        content = content + "again"
+        content = "12345.678"
         self.contentVar.set(content)
 
-        # Image files
-        # Pressed Images
-        self.p0 = tk.PhotoImage(file='./resource/Press_0.png')
-        self.p1 = tk.PhotoImage(file='./resource/Press_1.png')
-        self.p2 = tk.PhotoImage(file='./resource/Press_2.png')
-        self.p3 = tk.PhotoImage(file='./resource/Press_3.png')
-        self.p4 = tk.PhotoImage(file='./resource/Press_4.png')
-        self.p5 = tk.PhotoImage(file='./resource/Press_5.png')
-        self.p6 = tk.PhotoImage(file='./resource/Press_6.png')
-        self.p7 = tk.PhotoImage(file='./resource/Press_7.png')
-        self.p8 = tk.PhotoImage(file='./resource/Press_8.png')
-        self.p9 = tk.PhotoImage(file='./resource/Press_9.png')
+        # Image file reading
+        self.pimg=[]
+        self.rimg=[]
+        for n in range (0,10):
+            filename='./resource/Press_%d.png' % (n)
+            self.pimg.append(tk.PhotoImage(file=filename))
+            filename = './resource/Release_%d.png' % (n)
+            self.rimg.append(tk.PhotoImage(file=filename))
+
         self.pperiod = tk.PhotoImage(file='./resource/Press_period.png')
         self.pequal = tk.PhotoImage(file='./resource/Press_equal.png')
         self.pplus = tk.PhotoImage(file='./resource/Press_plus.png')
@@ -42,17 +37,6 @@ class window(tk.Frame):
         self.pmultiply = tk.PhotoImage(file='./resource/Press_multiply.png')
         self.pdivide = tk.PhotoImage(file='./resource/Press_divide.png')
         self.pall_clear = tk.PhotoImage(file='./resource/Press_AC.png')
-        # Released Images
-        self.r0 = tk.PhotoImage(file='./resource/Release_0.png')
-        self.r1 = tk.PhotoImage(file='./resource/Release_1.png')
-        self.r2 = tk.PhotoImage(file='./resource/Release_2.png')
-        self.r3 = tk.PhotoImage(file='./resource/Release_3.png')
-        self.r4 = tk.PhotoImage(file='./resource/Release_4.png')
-        self.r5 = tk.PhotoImage(file='./resource/Release_5.png')
-        self.r6 = tk.PhotoImage(file='./resource/Release_6.png')
-        self.r7 = tk.PhotoImage(file='./resource/Release_7.png')
-        self.r8 = tk.PhotoImage(file='./resource/Release_8.png')
-        self.r9 = tk.PhotoImage(file='./resource/Release_9.png')
         self.rperiod = tk.PhotoImage(file='./resource/Release_period.png')
         self.requal = tk.PhotoImage(file='./resource/Release_equal.png')
         self.rplus = tk.PhotoImage(file='./resource/Release_plus.png')
@@ -62,21 +46,40 @@ class window(tk.Frame):
         self.rall_clear = tk.PhotoImage(file='./resource/Release_AC.png')
 
         numberbuttons = []
-        for i in range(10):
-            button = tk.Button(self, text=str(i), font=('Calibri', 16),bd=0)
+        for i in range(0,10):
+            button = tk.Button(self, text=str(i), bd=0)
             numberbuttons.append(button)
 
-        # Image Mapping
-        numberbuttons[0].configure(image=self.r0)
-        numberbuttons[1].configure(image=self.r1)
-        numberbuttons[2].configure(image=self.r2)
-        numberbuttons[3].configure(image=self.r3)
-        numberbuttons[4].configure(image=self.r4)
-        numberbuttons[5].configure(image=self.r5)
-        numberbuttons[6].configure(image=self.r6)
-        numberbuttons[7].configure(image=self.r7)
-        numberbuttons[8].configure(image=self.r8)
-        numberbuttons[9].configure(image=self.r9)
+        for n in range(0,10):
+            numberbuttons[n].configure(image=self.rimg[n])
+
+        period = tk.Button(self, text='.', bd=0, image=self.rperiod)
+        equal = tk.Button(self, text='=', bd=0,image=self.requal)
+        plus = tk.Button(self, text='+', bd=0, image=self.rplus)
+        minus = tk.Button(self, text='-', bd=0, image=self.rminus)
+        multiply = tk.Button(self, text='*', bd=0, image=self.rmultiply)
+        divide = tk.Button(self, text='/', bd=0,image=self.rdivide)
+        all_clear = tk.Button(self, text='C', bd=0, image=self.rall_clear)
+
+        # Binding
+        for i in range(10):
+            numberbuttons[i].bind("<Button-1>", self.btn_press)
+            numberbuttons[i].bind("<ButtonRelease-1>", self.btn_release)
+        period.bind("<Button-1>", self.period_press)
+        period.bind("<ButtonRelease-1>", lambda event: event.widget.configure(image=self.rperiod))
+        equal.bind("<Button-1>", self.operator_press)
+        equal.bind("<ButtonRelease-1>", lambda event: event.widget.configure(image=self.requal))
+        plus.bind("<Button-1>", self.operator_press)
+        plus.bind("<ButtonRelease-1>", lambda event: event.widget.configure(image=self.rplus))
+        minus.bind("<Button-1>", self.operator_press)
+        minus.bind("<ButtonRelease-1>", lambda event: event.widget.configure(image=self.rminus))
+        multiply.bind("<Button-1>", self.operator_press)
+        multiply.bind("<ButtonRelease-1>", lambda event: event.widget.configure(image=self.rmultiply))
+        divide.bind("<Button-1>", self.operator_press)
+        divide.bind("<ButtonRelease-1>", lambda event: event.widget.configure(image=self.rdivide))
+        all_clear.bind("<Button-1>", self.all_clear_press)
+        all_clear.bind("<ButtonRelease-1>", lambda event: event.widget.configure(image=self.rall_clear))
+
         # Layout
         numberbuttons[0].place(x=10, y=100, width=30, height=20)
         numberbuttons[1].place(x=10, y=80, width=30, height=20)
@@ -88,55 +91,84 @@ class window(tk.Frame):
         numberbuttons[7].place(x=10, y=40, width=30, height=20)
         numberbuttons[8].place(x=40, y=40, width=30, height=20)
         numberbuttons[9].place(x=70, y=40, width=30, height=20)
-        # binding
-        for i in range(10):
-            numberbuttons[i].bind("<Button-1>", self.btn_press)
-            numberbuttons[i].bind("<ButtonRelease-1>", self.btn_release)
-
-        period = tk.Button(self, text='.', font=('Calibri', 16),bd=0)
-        period.configure(image=self.rperiod)
         period.place(x=40, y=100, width=30, height=20)
-
-        equal = tk.Button(self, text='=', font=('Calibri', 16),bd=0)
-        equal.configure(image=self.requal)
         equal.place(x=70, y=100, width=30, height = 20)
-
-        plus = tk.Button(self, text='+', font=('Calibri', 16),bd=0)
-        plus.configure(image=self.rplus)
         plus.place(x=100, y=40, width=30, height=20)
-
-        minus = tk.Button(self, text='-', font=('Calibri', 16),bd=0)
-        minus.configure(image=self.rminus)
         minus.place(x=100, y=60, width=30, height=20)
-
-        multiply = tk.Button(self, text='*', font=('Calibri', 16),bd=0)
-        multiply.configure(image=self.rmultiply)
         multiply.place(x=100, y=80, width=30, height=20)
-
-        divide = tk.Button(self, text='/', font=('Calibri', 16),bd=0)
-        divide.configure(image=self.rdivide)
         divide.place(x=100, y=100, width=30, height=20)
-
-        all_clear = tk.Button(self,text='C', font=('Calibri',16),bd=0)
-        all_clear.configure(image=self.rall_clear)
         all_clear.place(x=130, y=40, width=120, height=61)
-        all_clear.bind("<Button-1>", self.all_clear_press)
-        all_clear.bind("<ButtonRelease-1>", self.all_clear_release)
+
+        self.wait_initial_input = True
+        self.work = 0
+        self.operation = ""
 
     def btn_press(self, event):
-        event.widget.configure(image=self.p1)
-        c = event.widget["text"]
-        self.contentVar.set(c)
+        btn = event.widget["text"]
+        event.widget.configure(image=self.pimg[int(btn)])
+        if self.wait_initial_input == True:
+            self.work = float(self.contentVar.get())
+            print("inital")
+            print(self.work)
+            contents = btn
+            self.contentVar.set(contents)
+            self.wait_initial_input == False
+
+        self.contentVar.set(btn)
+
+    def period_press(self,event):
+        btn = event.widget['text']
+        print(btn)
+        event.widget.configure(image=self.pperiod)
+
+    def operator_press(self,event):
+        btn = event.widget['text']
+        print(btn)
+        if btn == '+':
+            event.widget.configure(image=self.pplus)
+            self.wait_initial_input = True
+            self.operation = '+'
+        elif btn == '-':
+            event.widget.configure(image=self.pminus)
+            self.wait_initial_input = True
+            self.operation = '-'
+        elif btn == '*':
+            event.widget.configure(image=self.pmultiply)
+            self.wait_initial_input = True
+            self.operation = '*'
+        elif btn == '/':
+            event.widget.configure(image=self.pdivide)
+            self.wait_initial_input = True
+            self.operation = '/'
+        elif btn == '=':
+            event.widget.configure(image=self.pequal)
+            if self.operation == '+':
+                contents = + self.work + int(self.contentVar.get())
+            elif self.operation == '-':
+                contents = self.work - int(self.contentVar.get())
+            elif self.operation == '*':
+                contents = self.work * int(self.contentVar.get())
+            elif self.operation == '/':
+                contents = self.work / int(self.contentVar.get())
+            else:
+                pass
+            self.contentVar.set(contents)
+
+            self.wait_initial_input = True
+            self.operation = ''
+            work = 0
 
     def btn_release(self, event):
-        event.widget.configure(image=self.r1)
+        event.widget.configure(image=self.rimg[int(event.widget["text"])])
 
     def all_clear_press(self, event):
         event.widget.configure(image=self.pall_clear)
-        self.contentVar.set("1")
+        self.saved_operator='None'
+        self.work=0
+        self.contentVar.set('0')
 
-    def all_clear_release(self, event):
-        event.widget.configure(image=self.rall_clear)
+
+
 
 
 
