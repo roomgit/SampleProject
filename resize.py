@@ -18,7 +18,6 @@ class Example(Frame):
         self.image = Image.open("./resource/nanohana.gif")
         self.img_copy= self.image.copy()
 
-
         self.background_image = ImageTk.PhotoImage(self.image)
 
         self.background = Label(self, image=self.background_image)
