@@ -4,7 +4,7 @@ import tkinter as tk
 
 class window(tk.Frame):
     def __init__(self, master=None):
-        tk.Frame.__init__(self, master,  width=200, height=150)
+        tk.Frame.__init__(self, master,  width=400, height=150)
         self.master.title('Calc')
 
         #root = tk.Tk()
@@ -27,12 +27,13 @@ class window(tk.Frame):
         self.pequal = tk.PhotoImage(file='./resource/Press_equal.png')
         self.pplus = tk.PhotoImage(file='./resource/Press_plus.png')
         self.pminus = tk.PhotoImage(file='./resource/Press_minus.png')
-        self.multiply = tk.PhotoImage(file='./resource/Press_multiply.png')
+        self.pmultiply = tk.PhotoImage(file='./resource/Press_multiply.png')
         self.pdivide = tk.PhotoImage(file='./resource/Press_divide.png')
+        self.pall_clear = tk.PhotoImage(file='./resource/Press_AC.png')
 
         numberbuttons = []
         for i in range(10):
-            button = tk.Button(self, text=str(i), font=('Calibri', 16))
+            button = tk.Button(self, text=str(i), font=('Calibri', 16),bd=0)
             button
             numberbuttons.append(button)
 
@@ -59,26 +60,42 @@ class window(tk.Frame):
         numberbuttons[8].place(x=40, y=40, width=30, height=20)
         numberbuttons[9].place(x=70, y=40, width=30, height=20)
 
-        period = tk.Button(self, text='.', font=('Calibri', 16))
+
+
+
+        period = tk.Button(self, text='.', font=('Calibri', 16),bd=0)
+        period.configure(image=self.pperiod)
         period.place(x=40, y=100, width=30, height=20)
 
-        equal = tk.Button(self, text='=', font=('Calibri', 16))
+        equal = tk.Button(self, text='=', font=('Calibri', 16),bd=0)
+        equal.configure(image=self.pequal)
         equal.place(x=70, y=100, width=30, height = 20)
 
-        plus = tk.Button(self, text='+', font=('Calibri', 16))
+        plus = tk.Button(self, text='+', font=('Calibri', 16),bd=0)
+        plus.configure(image=self.pplus)
         plus.place(x=100, y=40, width=30, height=20)
 
-        minus = tk.Button(self, text='-', font=('Calibri', 16))
+        minus = tk.Button(self, text='-', font=('Calibri', 16),bd=0)
+        minus.configure(image=self.pminus)
         minus.place(x=100, y=60, width=30, height=20)
 
-        multiply = tk.Button(self, text='*', font=('Calibri', 16))
+        multiply = tk.Button(self, text='*', font=('Calibri', 16),bd=0)
+        multiply.configure(image=self.pmultiply)
         multiply.place(x=100, y=80, width=30, height=20)
 
-        divide = tk.Button(self, text='/', font=('Calibri', 16))
+        divide = tk.Button(self, text='/', font=('Calibri', 16),bd=0)
+        divide.configure(image=self.pdivide)
         divide.place(x=100, y=100, width=30, height=20)
 
-        all_clear = tk.Button(self,text='C', font=('Calibri',16))
-        all_clear.place(x=130, y=40, width=30, height=20)
+        all_clear = tk.Button(self,text='C', font=('Calibri',16),bd=0, relief='flat')
+        all_clear.configure(image=self.pall_clear)
+        all_clear.place(x=130, y=40, width=96, height=51)
+        all_clear.bind("<Button-1>", self.all_clear_press)
+
+    def all_clear_press(self, event):
+        print(event.widget["text"])
+        event.widget.configure(image=self.p0)
+
 
 '''
         numberbuttons[0].grid(row=5, column=0)
