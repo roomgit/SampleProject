@@ -13,13 +13,39 @@ class window(tk.Frame):
         contentEntry['state'] = 'readonly'
         contentEntry.place(x=10, y=10, width=180, height=20)
 
+        self.p0 = tk.PhotoImage(file='./resource/Press_0.png')
+        self.p1 = tk.PhotoImage(file='./resource/Press_1.png')
+        self.p2 = tk.PhotoImage(file='./resource/Press_2.png')
+        self.p3 = tk.PhotoImage(file='./resource/Press_3.png')
+        self.p4 = tk.PhotoImage(file='./resource/Press_4.png')
+        self.p5 = tk.PhotoImage(file='./resource/Press_5.png')
+        self.p6 = tk.PhotoImage(file='./resource/Press_6.png')
+        self.p7 = tk.PhotoImage(file='./resource/Press_7.png')
+        self.p8 = tk.PhotoImage(file='./resource/Press_8.png')
+        self.p9 = tk.PhotoImage(file='./resource/Press_9.png')
+        self.pperiod = tk.PhotoImage(file='./resource/Press_period.png')
+        self.pequal = tk.PhotoImage(file='./resource/Press_equal.png')
+        self.pplus = tk.PhotoImage(file='./resource/Press_plus.png')
+        self.pminus = tk.PhotoImage(file='./resource/Press_minus.png')
+        self.multiply = tk.PhotoImage(file='./resource/Press_multiply.png')
+        self.pdivide = tk.PhotoImage(file='./resource/Press_divide.png')
+
         numberbuttons = []
-
-
         for i in range(10):
             button = tk.Button(self, text=str(i), font=('Calibri', 16))
+            button
             numberbuttons.append(button)
 
+        numberbuttons[0].configure(image=self.p0)
+        numberbuttons[1].configure(image=self.p1)
+        numberbuttons[2].configure(image=self.p2)
+        numberbuttons[3].configure(image=self.p3)
+        numberbuttons[4].configure(image=self.p4)
+        numberbuttons[5].configure(image=self.p5)
+        numberbuttons[6].configure(image=self.p6)
+        numberbuttons[7].configure(image=self.p7)
+        numberbuttons[8].configure(image=self.p8)
+        numberbuttons[9].configure(image=self.p9)
 
 
         numberbuttons[0].place(x=10, y=100, width=30, height=20)

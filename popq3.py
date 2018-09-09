@@ -13,8 +13,8 @@ class switchface(tk.Frame):
         #self.i0 = open("happy.gif")
         #self.i1 = open("nanohana.gif")
         # Make them tkinter-compatible.
-        self.p0 = tk.PhotoImage(file='happy.gif')
-        self.p1 = tk.PhotoImage(file='./resource/nanohana.png')
+        self.p0 = tk.PhotoImage(file='./resource/Release_exit.png')
+        self.p1 = tk.PhotoImage(file='./resource/Press_exit.png')
 
         # Create button, add image.
 #        self.b = tk.Button(master, image=self.p0, command=self.switch)
