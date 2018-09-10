@@ -100,22 +100,27 @@ class window(tk.Frame):
         event.widget.configure(image=self.release_img[int(event.widget["text"])])
 
     def digit_entry(self, btn):
-        if self.wait_initial_input == True:
-            self.work = float(self.contentVar.get())
+        if self.wait_initial_input:  # 初回キー入力待ち
+            #self.work = float(self.contentVar.get())
             print("inital")
             print(self.work)
             contents = btn
             self.contentVar.set(contents)
             self.wait_initial_input = False
         else:
-            self.work = float(self.contentVar.get())
-            contents = self.contentVar.get() + btn
+            if float(self.contentVar.get()) == 0:
+                print("content = " + self.contentVar.get())
+                contents = btn
+            else:
+                #self.work = float(self.contentVar.get())
+                contents = self.contentVar.get() + btn
 
         self.contentVar.set(contents)
 
     def period_entry(self):
-        if '.' not in (self.contentVar.get()):
+        if '.' not in (self.contentVar.get()):  # 小数点の複数回入力抑止
             contents = self.contentVar.get() + "."
+            print("少数点が付加されました")
             self.contentVar.set(contents)
         print("---.===")
 
@@ -123,28 +128,41 @@ class window(tk.Frame):
         #btn = event.widget['text']
         print(btn + 'was operated')
         if btn == '+':
+            if not self.wait_initial_input:  # 演算子の押しなおしでない
+                self.calculate()
+                self.work = float(self.contentVar.get())
             self.wait_initial_input = True
             print(self.operation)
-            self.calculate()
+            print("work is " + str(self.work))
             self.operation = '+'
         elif btn == '-':
+            if not self.wait_initial_input:  # 演算子の押しなおしでない
+                self.calculate()
+                self.work = float(self.contentVar.get())
             self.wait_initial_input = True
-            self.calculate()
             self.operation = '-'
         elif btn == '*':
+            if not self.wait_initial_input:  # 演算子の押しなおしでない
+                self.calculate()
+                self.work = float(self.contentVar.get())
             self.wait_initial_input = True
-            self.calculate()
             self.operation = '*'
         elif btn == '/':
+            if not self.wait_initial_input:  # 演算子の押しなおしでない
+                self.calculate()
+                self.work = float(self.contentVar.get())
             self.wait_initial_input = True
-            self.calculate()
             self.operation = '/'
         elif btn == '=':
+            #self.work = float(self.contentVar.get())
+            print(" = was pressed")
+            print(" work is " + str(self.work))
+            print(" operator is "+ self.operation)
             self.wait_initial_input = True
             print("operation = " + self.operation)
             self.calculate()
-            self.work = 0
             self.operation = ""
+
 
 
     def calculate(self):
@@ -168,9 +186,10 @@ class window(tk.Frame):
         self.operation = ''
         self.work = 0
         self.contentVar.set('0')
+        self.wait_initial_input == True
 
-    def display_error(self):
-        self.contentVar.set(100000)
+#    def display_error(self):
+#        self.contentVar.set(100000)
 
 if __name__ == "__main__":
     f = window()
