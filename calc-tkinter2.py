@@ -13,7 +13,7 @@ class window(tk.Frame):
 
         # Display Contents
         self.contentVar = tk.StringVar(self, '')
-        contentEntry = tk.Entry(self, textvariable=self.contentVar)
+        contentEntry = tk.Entry(self, textvariable=self.contentVar, font="Helvetica 36 bold")
         contentEntry['state'] = 'readonly'
         contentEntry.place(x=211, y=20, width=300, height=70)
         content = "12345.678"
@@ -114,7 +114,7 @@ class window(tk.Frame):
         self.contentVar.set(contents)
 
     def period_entry(self):
-        if True:
+        if '.' not in (self.contentVar.get()):
             contents = self.contentVar.get() + "."
             self.contentVar.set(contents)
         print("---.===")
@@ -143,6 +143,8 @@ class window(tk.Frame):
             self.wait_initial_input = True
             print("operation = " + self.operation)
             self.calculate()
+            self.work = 0
+            self.operation = ""
 
 
     def calculate(self):
@@ -160,13 +162,11 @@ class window(tk.Frame):
                 contents = self.work / contents
         self.contentVar.set(contents)
         self.wait_initial_input = True
-        #self.operation = ''
-        #self.work = 0
+
 
     def ac_entry(self):
-        #event.widget.configure(image=self.press_img[16])
-        self.saved_operator='None'
-        self.work=0
+        self.operation = ''
+        self.work = 0
         self.contentVar.set('0')
 
     def display_error(self):
