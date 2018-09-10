@@ -119,33 +119,33 @@ class window(tk.Frame):
             self.contentVar.set(contents)
         print("---.===")
 
-    def operator_entry(self,btn):
+    def operator_entry(self, btn):
         #btn = event.widget['text']
         print(btn + 'was operated')
         if btn == '+':
             self.wait_initial_input = True
-            self.operation = '+'
             print(self.operation)
-            callable(btn)
+            self.calculate()
+            self.operation = '+'
         elif btn == '-':
             self.wait_initial_input = True
+            self.calculate()
             self.operation = '-'
-            callable(btn)
         elif btn == '*':
             self.wait_initial_input = True
+            self.calculate()
             self.operation = '*'
-            callable(btn)
         elif btn == '/':
             self.wait_initial_input = True
+            self.calculate()
             self.operation = '/'
-            callable(btn)
         elif btn == '=':
             self.wait_initial_input = True
             print("operation = " + self.operation)
-            callable(btn)
+            self.calculate()
 
 
-    def calculate(self,btn):
+    def calculate(self):
         contents = float(self.contentVar.get())
         if self.operation == '+':
             contents = self.work + contents
