@@ -149,6 +149,7 @@ class window(tk.Frame):
             elif self.operation == '*':
                 contents = self.work * contents
             elif self.operation == '/':
+
                 contents = self.work / contents
             self.contentVar.set(contents)
             self.wait_initial_input = True

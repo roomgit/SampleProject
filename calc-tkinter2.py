@@ -76,6 +76,7 @@ class window(tk.Frame):
             print('period button')
             self.period_entry()
         elif btn == '11':
+            print("work = " + str(self.work))
             print('equal button')
             self.calculate("=")
         elif btn == '12':
@@ -99,7 +100,6 @@ class window(tk.Frame):
     def btn_release(self, event):
         event.widget.configure(image=self.release_img[int(event.widget["text"])])
 
-
     def digit_entry(self, btn):
         if self.wait_initial_input == True:
             self.work = float(self.contentVar.get())
@@ -120,43 +120,49 @@ class window(tk.Frame):
             self.contentVar.set(contents)
         print("---.===")
 
-
     def operator_entry(self,event):
         btn = event.widget['text']
-        self.calculate(btn)
-
-    def calculate(self,btn):
         print(btn + 'was operated')
-
         if btn == '+':
             self.wait_initial_input = True
             self.operation = '+'
+            print(self.operation)
+            callable(btn)
         elif btn == '-':
             self.wait_initial_input = True
             self.operation = '-'
+            callable(btn)
         elif btn == '*':
             self.wait_initial_input = True
             self.operation = '*'
+            callable(btn)
         elif btn == '/':
             self.wait_initial_input = True
             self.operation = '/'
+            callable(btn)
         elif btn == '=':
-            contents = float(self.contentVar.get())
-            if self.operation == '+':
-                contents = self.work + contents
-            elif self.operation == '-':
-                contents = self.work - contents
-            elif self.operation == '*':
-                contents = self.work * contents
-            elif self.operation == '/':
-                contents = self.work / contents
-            self.contentVar.set(contents)
             self.wait_initial_input = True
-            self.operation = ''
-            self.work = 0
+            peint("operation = " + self.operation)
+            callable(btn)
 
 
-
+    def calculate(self,btn):
+        contents = float(self.contentVar.get())
+        if self.operation == '+':
+            contents = self.work + contents
+        elif self.operation == '-':
+            contents = self.work - contents
+        elif self.operation == '*':
+            contents = self.work * contents
+        elif self.operation == '/':
+            if contents == 0:
+                pass
+            else:
+                contents = self.work / contents
+        self.contentVar.set(contents)
+        self.wait_initial_input = True
+        #self.operation = ''
+        #self.work = 0
 
     def ac_entry(self):
         #event.widget.configure(image=self.press_img[16])
@@ -164,6 +170,8 @@ class window(tk.Frame):
         self.work=0
         self.contentVar.set('0')
 
+    def display_error(self):
+        self.contentVar.set(100000)
 
 if __name__ == "__main__":
     f = window()
