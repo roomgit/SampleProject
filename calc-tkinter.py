@@ -4,10 +4,10 @@ import tkinter as tk
 
 class window(tk.Frame):
     def __init__(self, master=None):
-        tk.Frame.__init__(self, master,  width=600, height=375)
+        tk.Frame.__init__(self, master,  width=722, height=375)
         self.img = tk.PhotoImage(file='./resource/background.png')
         label = tk.Label(self, image=self.img)
-        label.place(x=0, y=0, width=600, height=375)
+        label.place(x=0, y=0, width=722, height=375)
 
         self.master.title('Calc')
         self.master.resizable(False, False)
