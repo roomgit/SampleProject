@@ -76,21 +76,20 @@ class window(tk.Frame):
             print('period button')
             self.period_entry()
         elif btn == '11':
-            print("work = " + str(self.work))
             print('equal button')
-            self.calculate("=")
+            self.operator_entry("=")
         elif btn == '12':
             print('plus button')
-            self.calculate("+")
+            self.operator_entry("+")
         elif btn == '13':
             print('minus button')
-            self.calculate("-")
+            self.operator_entry("-")
         elif btn == '14':
             print('multiply button')
-            self.calculate("*")
+            self.operator_entry("*")
         elif btn == '15':
             print('divide button')
-            self.calculate("/")
+            self.operator_entry("/")
         elif btn == '16':
             print('all clear button')
             self.ac_entry()
@@ -120,8 +119,8 @@ class window(tk.Frame):
             self.contentVar.set(contents)
         print("---.===")
 
-    def operator_entry(self,event):
-        btn = event.widget['text']
+    def operator_entry(self,btn):
+        #btn = event.widget['text']
         print(btn + 'was operated')
         if btn == '+':
             self.wait_initial_input = True
@@ -142,7 +141,7 @@ class window(tk.Frame):
             callable(btn)
         elif btn == '=':
             self.wait_initial_input = True
-            peint("operation = " + self.operation)
+            print("operation = " + self.operation)
             callable(btn)
 
 
