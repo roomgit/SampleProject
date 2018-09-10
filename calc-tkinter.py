@@ -39,19 +39,19 @@ class window(tk.Frame):
             buttons[n].configure(image=self.release_img[n])
 
         #period = tk.Button(self, text='.', bd=0, image=self.release_img[10])
-        buttons[10].configure(text='.')
+        #buttons[10].configure(text='.')
         #equal = tk.Button(self, text='=', bd=0,image=self.release_img[11])
-        buttons[11].configure(text='=')
+        #buttons[11].configure(text='=')
         #plus = tk.Button(self, text='+', bd=0, image=self.release_img[12])
-        buttons[12].configure(text='+')
+        #buttons[12].configure(text='+')
         #minus = tk.Button(self, text='-', bd=0, image=self.release_img[13])
-        buttons[13].configure(text='-')
+        #buttons[13].configure(text='-')
         #multiply = tk.Button(self, text='*', bd=0, image=self.release_img[14])
-        buttons[14].configure(text='*')
+        #buttons[14].configure(text='*')
         #divide = tk.Button(self, text='/', bd=0,image=self.release_img[15])
-        buttons[15].configure(text='/')
+        #buttons[15].configure(text='/')
         #all_clear = tk.Button(self, text='C', bd=0, image=self.release_img[16])
-        buttons[16].configure(text='C')
+        #buttons[16].configure(text='C')
 
         # Binding
         for i in range(17):
@@ -143,9 +143,10 @@ class window(tk.Frame):
     def btn_press(self, event):
         btn = event.widget["text"]
         event.widget.configure(image=self.press_img[int(btn)])
+        list = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
 
-        if btn in '0123456789':
-            print('0-9 button')
+        if btn in list:
+            print(btn)
 
             if self.wait_initial_input == True:
                 self.work = float(self.contentVar.get())
