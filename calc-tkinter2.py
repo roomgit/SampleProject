@@ -98,12 +98,13 @@ class window(tk.Frame):
     def btn_release(self, event):
         event.widget.configure(image=self.release_img[int(event.widget["text"])])
 
-
-
+    #
     # Calculator
     #
     def digit_entry(self, btn):
         self.err_icon.configure(text="")
+        if len(self.contentVar.get()) >= 10:  # 入力を10桁までに制限
+            return
         if self.wait_initial_input:  # 初回キー入力待ち
             contents = btn
             self.contentVar.set(contents)
@@ -118,7 +119,7 @@ class window(tk.Frame):
     def period_entry(self):
         self.err_icon.configure(text="")
         if self.wait_initial_input:
-            contents = "0."
+            self.contentVar.set("0.")
             self.wait_initial_input = False
         elif '.' not in (self.contentVar.get()):  # 小数点の複数回入力抑止
             contents = self.contentVar.get() + "."
@@ -137,28 +138,48 @@ class window(tk.Frame):
         self.operation = ""
 
     def calculate(self):
-        contents = float(self.contentVar.get())
+        value = float(self.contentVar.get())
         if self.operation == '+':
-            contents = self.work + contents
+            value = self.work + value
         elif self.operation == '-':
-            contents = self.work - contents
+            value = self.work - value
         elif self.operation == '*':
-            contents = self.work * contents
+            value = self.work * value
         elif self.operation == '/':
-            if contents == 0:
+            if value == 0:
                 self.err_icon.configure(text="E")
             else:
-                contents = self.work / contents
+                value = self.work / value
 
-        contents = round(contents, 8)  # 小数点以下 8 桁までに丸める
+        # Formatting
 
-        d = str(contents).rsplit('.', 1)  # 小数点の右側
-        if float(d[1]) == 0:  # ゼロの場合
-            contents = d[0]   # ゼロの左側のみを採用
+        #value = round(value, 9)  # 小数点以下 9 桁までに丸める
 
-        if len(d[0]) > 10:  # 整数部分が　10 桁を超えるとエラー
-            self.err_icon.configure(text="E")
-            contents = "0"
+        if value.is_integer():
+            if value > 9999999999:  # 10桁を超える
+                self.err_icon.configure(text="E")
+                contents = "0"
+            else:
+                contents = str(int(value)) # 少数点以下のゼロ除去
+            print ("integer")
+        else:
+            contents = "%.10f" % value  # 指数表記の場合も少数表記に変換
+            d = contents.rsplit('.', 1)  # 小数点で分割
+            print('len d0 =', len(d[0]))
+            print('d0 = ', d[0])
+            print('len d1 =', len(d[1]))
+            print('d1 = ', d[1])
+            if len(d[0]) > 10:  # 整数部分が　10 桁を超える
+                self.err_icon.configure(text="E")
+                contents = "0"
+            else:
+                print('len d 0 = ', len(d[0]))
+                place = 9 - len(d[0])  # 表示可能な少数点以下桁数
+                print('place = ', place)
+                print('value = ', value)
+                print('value% = ', "%.10f" % value)
+                contents = str(round(value, place))
+
         self.contentVar.set(contents)
 
 
