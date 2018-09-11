@@ -99,30 +99,26 @@ class window(tk.Frame):
     def btn_release(self, event):
         event.widget.configure(image=self.release_img[int(event.widget["text"])])
 
+    # Calculator
     def digit_entry(self, btn):
         if self.wait_initial_input:  # 初回キー入力待ち
-            #self.work = float(self.contentVar.get())
             print("inital")
             print(self.work)
             contents = btn
             self.contentVar.set(contents)
             self.wait_initial_input = False
         else:
-            if float(self.contentVar.get()) == 0:
-                print("content = " + self.contentVar.get())
-                contents = btn
-            else:
-                #self.work = float(self.contentVar.get())
-                contents = self.contentVar.get() + btn
+            contents = self.contentVar.get() + btn
 
         self.contentVar.set(contents)
 
     def period_entry(self):
-        if '.' not in (self.contentVar.get()):  # 小数点の複数回入力抑止
+        if self.wait_initial_input:
+            contents = "0."
+        elif '.' not in (self.contentVar.get()):  # 小数点の複数回入力抑止
             contents = self.contentVar.get() + "."
-            print("少数点が付加されました")
-            self.contentVar.set(contents)
-        print("---.===")
+        self.contentVar.set(contents)
+        self.wait_initial_input = False
 
     def operator_entry(self, btn):
         #btn = event.widget['text']
