@@ -21,24 +21,24 @@ class window(tk.Frame):
 
         # Buttons
         buttons = []
-        for i in range(0,17):
+        for i in range(0,18):
             button = tk.Button(self, text=str(i), bd=0)
             buttons.append(button)
 
         # Binding
-        for i in range(17):
+        for i in range(18):
             buttons[i].bind("<Button-1>", self.btn_press)
             buttons[i].bind("<ButtonRelease-1>", self.btn_release)
 
         # Image mapping
         self.press_img = []
         self.release_img = []
-        for n in range(0, 17):
+        for n in range(0, 18):
             filename = './resource/Press_%d.png' % n
             self.press_img.append(tk.PhotoImage(file=filename))
             filename = './resource/Release_%d.png' % n
             self.release_img.append(tk.PhotoImage(file=filename))
-        for n in range(0,17):
+        for n in range(0,18):
             buttons[n].configure(image=self.release_img[n])  # images of released buttons
 
         # Layout
@@ -59,7 +59,7 @@ class window(tk.Frame):
         buttons[14].place(x=441, y=174, width=120, height=61)  # multiply
         buttons[15].place(x=441, y=104, width=120, height=61)  # divide
         buttons[16].place(x=581, y=104, width=120, height=61)  # all_clear
-
+        buttons[17].place(x=581, y=174, width=120, height=61)  # all_clear
 
         self.wait_initial_input = True
         self.work = 0
@@ -94,6 +94,9 @@ class window(tk.Frame):
         elif btn == '16':
             print('all clear button')
             self.ac_entry()
+        elif btn == '17':
+            print('clear button')
+            self.c_entry()
         else:
             print('other buttons')
 
@@ -159,7 +162,7 @@ class window(tk.Frame):
 
             self.calculate()
             self.wait_initial_input = True
-            self.operation = ""
+            #self.operation = ""
 
     def calculate(self):
         contents = float(self.contentVar.get())
@@ -192,6 +195,9 @@ class window(tk.Frame):
         self.work = 0
         self.contentVar.set('0')
         self.wait_initial_input == True
+
+    def c_entry(self):
+        self.contentVar.set('0')
 
 #    def display_error(self):
 #        self.contentVar.set(100000)
