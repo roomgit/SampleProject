@@ -162,7 +162,6 @@ class window(tk.Frame):
         self.contentVar.set(contents)
 
 
-
     def ac_entry(self):
         self.err_icon.configure(text="")
         self.operation = ''
