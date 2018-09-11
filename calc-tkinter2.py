@@ -181,7 +181,8 @@ class window(tk.Frame):
         d = str(contents).rsplit('.', 1)  # 小数点の後ろ
         if float(d[1]) == 0:  # ゼロの場合
             contents = d[0]
-        if len(d[0]) >= 8:
+
+        if len(d[0]) > 8:  # 整数部分が　８ 桁を超える
             contents = "error"
         self.contentVar.set(contents)
         self.wait_initial_input = True
