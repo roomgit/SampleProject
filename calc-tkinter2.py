@@ -13,7 +13,7 @@ class window(tk.Frame):
 
         # Display Contents
         self.contentVar = tk.StringVar(self, '')
-        contentEntry = tk.Entry(self, textvariable=self.contentVar, font="Helvetica 36 bold")
+        contentEntry = tk.Entry(self, textvariable=self.contentVar, font="Helvetica 36 bold",justify= 'right')
         contentEntry['state'] = 'readonly'
         contentEntry.place(x=211, y=20, width=300, height=70)
         content = "12345.678"
