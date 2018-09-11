@@ -65,6 +65,7 @@ class window(tk.Frame):
         self.work = 0
         self.operation = ""
 
+
     def btn_press(self, event):
         btn = event.widget["text"]
         event.widget.configure(image=self.press_img[int(btn)])  # images of pressed buttons
@@ -99,6 +100,8 @@ class window(tk.Frame):
     def btn_release(self, event):
         event.widget.configure(image=self.release_img[int(event.widget["text"])])
 
+
+
     # Calculator
     def digit_entry(self, btn):
         if self.wait_initial_input:  # 初回キー入力待ち
@@ -108,17 +111,19 @@ class window(tk.Frame):
             self.contentVar.set(contents)
             self.wait_initial_input = False
         else:
-            contents = self.contentVar.get() + btn
-
+            if self.contentVar.get() == "0":
+                contents = btn
+            else:
+                contents = self.contentVar.get() + btn
         self.contentVar.set(contents)
 
     def period_entry(self):
         if self.wait_initial_input:
             contents = "0."
+            self.wait_initial_input = False
         elif '.' not in (self.contentVar.get()):  # 小数点の複数回入力抑止
             contents = self.contentVar.get() + "."
         self.contentVar.set(contents)
-        self.wait_initial_input = False
 
     def operator_entry(self, btn):
         #btn = event.widget['text']
@@ -159,8 +164,6 @@ class window(tk.Frame):
             self.calculate()
             self.operation = ""
 
-
-
     def calculate(self):
         contents = float(self.contentVar.get())
         if self.operation == '+':
@@ -174,6 +177,10 @@ class window(tk.Frame):
                 pass
             else:
                 contents = self.work / contents
+
+        d = str(contents).rsplit('.', 1)  # 小数点の後ろ
+        if float(d[1]) == 0:  # ゼロの場合
+            contents = d[0]
         self.contentVar.set(contents)
         self.wait_initial_input = True
 
