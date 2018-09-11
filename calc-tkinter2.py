@@ -13,7 +13,7 @@ class window(tk.Frame):
 
         # Display Contents
         self.contentVar = tk.StringVar(self, '')
-        contentEntry = tk.Entry(self, textvariable=self.contentVar, font="Helvetica 36 bold",justify= 'right')
+        contentEntry = tk.Entry(self, textvariable=self.contentVar, font="Helvetica 36 bold", justify='right')
         contentEntry['state'] = 'readonly'
         contentEntry.place(x=211, y=20, width=300, height=70)
         content = "12345.678"
@@ -55,9 +55,9 @@ class window(tk.Frame):
         buttons[10].place(x=161, y=314, width=120, height=61)  # period
         buttons[11].place(x=301, y=314, width=120, height=61)  # equal
         buttons[12].place(x=441, y=314, width=120, height=61)  # plus
-        buttons[13].place(x=441, y=104, width=120, height=61)  # minus
+        buttons[13].place(x=441, y=244, width=120, height=61)  # minus
         buttons[14].place(x=441, y=174, width=120, height=61)  # multiply
-        buttons[15].place(x=441, y=244, width=120, height=61)  # divide
+        buttons[15].place(x=441, y=104, width=120, height=61)  # divide
         buttons[16].place(x=581, y=104, width=120, height=61)  # all_clear
 
 
@@ -103,6 +103,7 @@ class window(tk.Frame):
 
 
     # Calculator
+    #
     def digit_entry(self, btn):
         if self.wait_initial_input:  # 初回キー入力待ち
             print("inital")
@@ -155,13 +156,9 @@ class window(tk.Frame):
             self.wait_initial_input = True
             self.operation = '/'
         elif btn == '=':
-            #self.work = float(self.contentVar.get())
-            print(" = was pressed")
-            print(" work is " + str(self.work))
-            print(" operator is " + self.operation)
-            self.wait_initial_input = True
-            print("operation = " + self.operation)
+
             self.calculate()
+            self.wait_initial_input = True
             self.operation = ""
 
     def calculate(self):
@@ -187,7 +184,7 @@ class window(tk.Frame):
         if len(d[0]) > 10:  # 整数部分が　10 桁を超えるとエラー
             contents = "error"
         self.contentVar.set(contents)
-        self.wait_initial_input = True
+
 
 
     def ac_entry(self):
