@@ -158,7 +158,7 @@ class window(tk.Frame):
             #self.work = float(self.contentVar.get())
             print(" = was pressed")
             print(" work is " + str(self.work))
-            print(" operator is "+ self.operation)
+            print(" operator is " + self.operation)
             self.wait_initial_input = True
             print("operation = " + self.operation)
             self.calculate()
@@ -178,11 +178,13 @@ class window(tk.Frame):
             else:
                 contents = self.work / contents
 
-        d = str(contents).rsplit('.', 1)  # 小数点の後ろ
-        if float(d[1]) == 0:  # ゼロの場合
-            contents = d[0]
+        contents = round(contents, 8)  # 小数点以下 8 桁までに丸める
 
-        if len(d[0]) > 8:  # 整数部分が　８ 桁を超える
+        d = str(contents).rsplit('.', 1)  # 小数点の右側
+        if float(d[1]) == 0:  # ゼロの場合
+            contents = d[0]   # ゼロの左側のみを採用
+
+        if len(d[0]) > 10:  # 整数部分が　10 桁を超えるとエラー
             contents = "error"
         self.contentVar.set(contents)
         self.wait_initial_input = True
