@@ -131,7 +131,7 @@ class window(tk.Frame):
         if btn == '+':
             if not self.wait_initial_input:  # 演算子の押しなおしでない
                 self.calculate()
-                self.work = float(self.contentVar.get())
+            self.work = float(self.contentVar.get())
             self.wait_initial_input = True
             print(self.operation)
             print("work is " + str(self.work))
@@ -139,19 +139,19 @@ class window(tk.Frame):
         elif btn == '-':
             if not self.wait_initial_input:  # 演算子の押しなおしでない
                 self.calculate()
-                self.work = float(self.contentVar.get())
+            self.work = float(self.contentVar.get())
             self.wait_initial_input = True
             self.operation = '-'
         elif btn == '*':
             if not self.wait_initial_input:  # 演算子の押しなおしでない
                 self.calculate()
-                self.work = float(self.contentVar.get())
+            self.work = float(self.contentVar.get())
             self.wait_initial_input = True
             self.operation = '*'
         elif btn == '/':
             if not self.wait_initial_input:  # 演算子の押しなおしでない
                 self.calculate()
-                self.work = float(self.contentVar.get())
+            self.work = float(self.contentVar.get())
             self.wait_initial_input = True
             self.operation = '/'
         elif btn == '=':
@@ -181,6 +181,8 @@ class window(tk.Frame):
         d = str(contents).rsplit('.', 1)  # 小数点の後ろ
         if float(d[1]) == 0:  # ゼロの場合
             contents = d[0]
+        if len(d[0]) >= 8:
+            contents = "error"
         self.contentVar.set(contents)
         self.wait_initial_input = True
 
