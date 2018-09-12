@@ -2,6 +2,12 @@
 
 import tkinter as tk
 
+# For pyinstaller
+def resource_path(relative):
+  if hasattr(sys, "_MEIPASS"):
+      return os.path.join(sys._MEIPASS, relative)
+  return os.path.join(relative)
+
 
 class window(tk.Frame):
     def __init__(self, master=None):
@@ -39,9 +45,9 @@ class window(tk.Frame):
         self.press_img = []
         self.release_img = []
         for n in range(0, 18):
-            filename = './resource/Press_%d.png' % n
+            filename = resource_path("./resource/Press_%d.png") % n
             self.press_img.append(tk.PhotoImage(file=filename))
-            filename = './resource/Release_%d.png' % n
+            filename = resource_path("./resource/Release_%d.png") % n
             self.release_img.append(tk.PhotoImage(file=filename))
         for n in range(0, 18):
             buttons[n].configure(image=self.release_img[n])  # images of released buttons
