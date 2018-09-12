@@ -153,14 +153,13 @@ class window(tk.Frame):
 
         # Formatting
 
-        #value = round(value, 9)  # 小数点以下 9 桁までに丸める
-
         if value.is_integer():
             if value > 9999999999:  # 10桁を超える
                 self.err_icon.configure(text="E")
                 contents = "0"
             else:
-                contents = str(int(value)) # 少数点以下のゼロ除去
+                print('contents raw if integer = ', value)
+                contents = str(int(value))  # 少数点以下のゼロ除去
             print ("integer")
         else:
             contents = "%.10f" % value  # 指数表記の場合も少数表記に変換
@@ -178,9 +177,13 @@ class window(tk.Frame):
                 print('place = ', place)
                 print('value = ', value)
                 print('value% = ', "%.10f" % value)
+                contents =  "%.10f" % value
+                print('contents = ', contents)
                 contents = str(round(value, place))
 
+
         self.contentVar.set(contents)
+
 
 
     def ac_entry(self):
