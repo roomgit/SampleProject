@@ -14,7 +14,7 @@ class window(tk.Frame):
         tk.Frame.__init__(self, master,  width=722, height=375)
         self.master.title('Calc-10')
         self.master.resizable(False, False)
-        self.img = tk.PhotoImage(file='./resource/background.png')
+        self.img = tk.PhotoImage(file=resource_path("./resource/background.png"))
         label = tk.Label(self, image=self.img)
         label.place(x=0, y=0, width=722, height=375)
 
