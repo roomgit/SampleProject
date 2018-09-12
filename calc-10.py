@@ -2,6 +2,7 @@
 
 import tkinter as tk
 
+
 class window(tk.Frame):
     def __init__(self, master=None):
         tk.Frame.__init__(self, master,  width=722, height=375)
@@ -101,9 +102,9 @@ class window(tk.Frame):
     #
     def digit_entry(self, btn):
         self.err_icon.configure(text="")
-        if len(self.contentVar.get()) >= 10:  # 入力を10桁までに制限
+        if len(self.contentVar.get()) >= 10:  # limit input up to 10 digits
             return
-        if self.wait_initial_input:  # 初回キー入力待ち
+        if self.wait_initial_input:  # Waiting the first digit key input
             contents = btn
             self.contentVar.set(contents)
             self.wait_initial_input = False
@@ -119,12 +120,12 @@ class window(tk.Frame):
         if self.wait_initial_input:
             self.contentVar.set("0.")
             self.wait_initial_input = False
-        elif '.' not in (self.contentVar.get()):  # 小数点の複数回入力抑止
+        elif '.' not in (self.contentVar.get()):  # Inhibits multiple periods
             contents = self.contentVar.get() + "."
             self.contentVar.set(contents)
 
     def operator_entry(self, btn):
-        if not self.wait_initial_input:  # '演算子の押しなおし'でない
+        if not self.wait_initial_input:  # Not a repeated operator button press
             self.calculate()
         self.work = float(self.contentVar.get())
         self.wait_initial_input = True
@@ -161,20 +162,20 @@ class window(tk.Frame):
 
         # Formatting
         if value.is_integer():
-            if value > 9999999999:  # 10桁を超える
+            if value > 9999999999:  # Exceeds 10 digits?
                 self.err_icon.configure(text="E")
                 contents = "0"
             else:
-                contents = str(int(value))  # 少数点以下のゼロ除去
+                contents = str(int(value))  # Remove zeros after period
         else:
-            contents = "%.10f" % value  # 指数表記の場合も少数表記に変換
-            d = contents.rsplit('.', 1)  # 小数点で分割
-            if len(d[0]) > 10:  # 整数部分が　10 桁を超える
+            contents = "%.10f" % value  # Converts to fixed-point format
+            d = contents.rsplit('.', 1)  # Divide by period
+            if len(d[0]) > 10:  # Integer portion exceeds 10 digits
                 self.err_icon.configure(text="E")
                 contents = "0"
             else:
                 value = float(value)
-                place = 9 - len(d[0])  # 表示可能な少数点以下桁数
+                place = 9 - len(d[0])  # determine how many digits after the period can be displayed
                 contents = str(round(value, place))
 
         self.contentVar.set(contents)
